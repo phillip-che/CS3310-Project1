@@ -19,26 +19,26 @@ public class MatrixMult {
         int size = input.nextInt();
         int[][] a = generateMatrix(size);
         int[][] b = generateMatrix(size);
-        System.out.println("\nMatrix A = \n" + Arrays.deepToString(a));
-        System.out.println("\nMatrix B = \n" + Arrays.deepToString(b));
+        // System.out.println("\nMatrix A = \n" + Arrays.deepToString(a));
+        // System.out.println("\nMatrix B = \n" + Arrays.deepToString(b));
 
         long startTime = System.nanoTime();
-        System.out.println("\nClassical: \n" + Arrays.deepToString(classical(size, a, b)));
+        // System.out.println("\nClassical: \n" + Arrays.deepToString(classical(size, a, b)));
         long endTime = System.nanoTime();
         long time = endTime - startTime;
-        System.out.println("Execution Time: " + (time) + "\n");
+        System.out.println("Classical Execution Time: " + (time) + "\n");
 
         startTime = System.nanoTime();
-        System.out.println("\nDivide and Conquer: \n" + Arrays.deepToString(divideAndConquer(a, b, 0, 0, 0, 0, size)));
+        // System.out.println("\nDivide and Conquer: \n" + Arrays.deepToString(divideAndConquer(a, b, 0, 0, 0, 0, size)));
         endTime = System.nanoTime();
         time = endTime - startTime;
-        System.out.println("Execution Time: " + (time) + "\n");
+        System.out.println("Divide and Conquer Execution Time: " + (time) + "\n");
 
         startTime = System.nanoTime();
-        System.out.println("\nStrassen: \n" + Arrays.deepToString(strassen(size, a, b)));
+        // System.out.println("\nStrassen: \n" + Arrays.deepToString(strassen(size, a, b)));
         endTime = System.nanoTime();
         time = endTime - startTime;
-        System.out.println("Execution Time: " + (time) + "\n");
+        System.out.println("Strassen Execution Time: " + (time) + "\n");
     }
 
     public static int[][] classical(int n, int[][] a, int[][] b) {
