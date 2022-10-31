@@ -17,28 +17,55 @@ public class MatrixMult {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter matrix size that is a power of 2: ");
         int size = input.nextInt();
-        int[][] a = generateMatrix(size);
-        int[][] b = generateMatrix(size);
-        // System.out.println("\nMatrix A = \n" + Arrays.deepToString(a));
-        // System.out.println("\nMatrix B = \n" + Arrays.deepToString(b));
+        System.out.print("Enter amount of tests: ");
+        int tests = input.nextInt();
+        long[] cTimes = new long[tests];
+        long[] dTimes = new long[tests];
+        long[] sTimes = new long[tests];
+        
+        for(int i = 0; i < tests; i++) {
+            int[][] a = generateMatrix(size);
+            int[][] b = generateMatrix(size);
+            // System.out.println("\nMatrix A = \n" + Arrays.deepToString(a));
+            // System.out.println("\nMatrix B = \n" + Arrays.deepToString(b));
+            
+            long startTime = System.nanoTime();
+            // System.out.println("\nClassical: \n" + Arrays.deepToString(classical(size, a, b)));
+            classical(size, a, b);
+            long endTime = System.nanoTime();
+            long time = endTime - startTime;
+            cTimes[i] = time; 
 
-        long startTime = System.nanoTime();
-        // System.out.println("\nClassical: \n" + Arrays.deepToString(classical(size, a, b)));
-        long endTime = System.nanoTime();
-        long time = endTime - startTime;
-        System.out.println("Classical Execution Time: " + (time) + "\n");
+            startTime = System.nanoTime();
+            // System.out.println("\nDivide and Conquer: \n" + Arrays.deepToString(divideAndConquer(a, b, 0, 0, 0, 0, size)));
+            divideAndConquer(a, b, 0, 0, 0, 0, size);
+            endTime = System.nanoTime();
+            time = endTime - startTime;
+            dTimes[i] = time;
 
-        startTime = System.nanoTime();
-        // System.out.println("\nDivide and Conquer: \n" + Arrays.deepToString(divideAndConquer(a, b, 0, 0, 0, 0, size)));
-        endTime = System.nanoTime();
-        time = endTime - startTime;
-        System.out.println("Divide and Conquer Execution Time: " + (time) + "\n");
+            startTime = System.nanoTime();
+            // System.out.println("\nStrassen: \n" + Arrays.deepToString(strassen(size, a, b)));
+            strassen(size, a, b);
+            endTime = System.nanoTime();
+            time = endTime - startTime;
+            sTimes[i] = time;
+        }
 
-        startTime = System.nanoTime();
-        // System.out.println("\nStrassen: \n" + Arrays.deepToString(strassen(size, a, b)));
-        endTime = System.nanoTime();
-        time = endTime - startTime;
-        System.out.println("Strassen Execution Time: " + (time) + "\n");
+        // print out results
+        System.out.println("Classical Times: ");
+        for(long x : cTimes) {
+            System.out.println(x);
+        }
+        System.out.println();
+        System.out.println("Divide and Conquer Times: ");
+        for(long x : dTimes) {
+            System.out.println(x);
+        }
+        System.out.println();
+        System.out.println("Strassen Times: ");
+        for(long x : sTimes) {
+            System.out.println(x);
+        }
     }
 
     public static int[][] classical(int n, int[][] a, int[][] b) {
